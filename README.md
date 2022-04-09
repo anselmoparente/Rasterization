@@ -1,1 +1,1 @@
-# UmNegocioAli
+# Rasterization of lines and polygons
