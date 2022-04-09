@@ -1,24 +1,14 @@
+import os
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow
-
-class Window (QMainWindow):
-    def __init__(self):
-        super().__init__()
-
-        self.top = 100
-        self.left = 100
-        self.width = 800
-        self.height = 600
-        self.title = "First Window"
-        self.ChargeWindow()
-    
-    def ChargeWindow(self):
-        self.setGeometry(self.left, self.top, self.width, self.height), 
-        self.setWindowTitle(self.title),
-        self.show()
-
+from pathlib import Path
+from PyQt5.QtGui import QGuiApplication
+from PyQt5.QtQml import QQmlApplicationEngine
 
 if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    w = Window()
+    app = QGuiApplication(sys.argv)
+    app.setOrganizationName("Os Brabos")
+    app.setApplicationName("Rasterization")
+    engine = QQmlApplicationEngine()
+
+    engine.load(os.fspath(Path(__file__).resolve().parent / "view/main.qml"))
     sys.exit(app.exec_())
