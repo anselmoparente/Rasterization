@@ -8,6 +8,7 @@ Rectangle {
     id: leftMenu
 
     property int iconSize: 16
+    property string btnPressed: ""
 
     clip: true
     width: 304
@@ -19,7 +20,7 @@ Rectangle {
     anchors.bottomMargin: 0
     anchors.topMargin: 0
 
-    Keys.onReturnPressed: buttonCreateFile.forceActiveFocus()
+    Keys.onReturnPressed: buttonRasterizationLine.forceActiveFocus()
 
     QtObject {
         id: internal
@@ -28,22 +29,35 @@ Rectangle {
             iconSize = 20
             leftMenu.width = 250
         }
+
+        function continueFunction(){
+            if(btnPressed == "buttonRasterizationLines") {
+                routes.pop()
+                routes.push(Qt.resolvedUrl("../screens/RasterizationLines.qml"))
+                print('deu bom')
+            } else if(btnPressed == "buttonOpenFile"){
+                fileOpenFile.open()
+            }
+        }
+
     }
 
     Column {
         id: columnMenu
 
         LeftMenuButton {
-            id: buttonCreateFile
+            id: buttonRasterizationLines
             width: leftMenu.width
             text: qsTr("Rasterizar retas")
             isActiveMenu: focus
 
-            onClicked: {}
+            onClicked: {
+                btnPressed = "buttonRasterizationLines"
+            }
         }
 
         LeftMenuButton {
-            id: buttonImportFile
+            id: buttonRasterizationPolygons
             width: leftMenu.width 
             text: qsTr("Rasterizar polígonos")
             isActiveMenu: focus
