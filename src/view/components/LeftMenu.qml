@@ -63,7 +63,9 @@ Rectangle {
             text: qsTr("Rasterizar polígonos")
             isActiveMenu: focus
 
-            onClicked: {}
+            onClicked: {
+                funcaoRaster.algoritimoBresenham()
+            }
         }
     }                               
 }
