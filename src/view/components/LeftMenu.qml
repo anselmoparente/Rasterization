@@ -34,9 +34,13 @@ Rectangle {
             if(btnPressed == "buttonRasterizationLines") {
                 routes.pop()
                 routes.push(Qt.resolvedUrl("../screens/RasterizationLines.qml"))
-                print('deu bom')
-            } else if(btnPressed == "buttonOpenFile"){
-                fileOpenFile.open()
+            } else if(btnPressed == "buttonRasterizationPolygons"){
+                routes.pop()
+                routes.push(Qt.resolvedUrl("../screens/RasterizationPolygons.qml"))
+            }
+            else if(btnPressed == "buttonHomePage"){
+                routes.pop()
+                routes.push(Qt.resolvedUrl("../screens/NoRasterizationPage.qml"))
             }
         }
 
@@ -44,6 +48,18 @@ Rectangle {
 
     Column {
         id: columnMenu
+        
+        LeftMenuButton {
+            id: buttonHomePage
+            width: leftMenu.width
+            text: qsTr("Tela Inicial")
+            isActiveMenu: focus
+
+            onClicked: {
+                btnPressed = "buttonHomePage"
+                internal.continueFunction()
+            }
+        }
 
         LeftMenuButton {
             id: buttonRasterizationLines
@@ -64,7 +80,8 @@ Rectangle {
             isActiveMenu: focus
 
             onClicked: {
-                funcaoRaster.algoritimoBresenham()
+                btnPressed = "buttonRasterizationPolygons"
+                internal.continueFunction()
             }
         }
     }                               

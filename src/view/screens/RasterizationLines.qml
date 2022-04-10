@@ -8,7 +8,7 @@ Item {
     height: 500
     objectName: "Rasterization Lines Page"
     
-    Keys.onReturnPressed: noRasterizationPage.forceActiveFocus()
+    Keys.onReturnPressed: rasterizationLines.forceActiveFocus()
     
     Column{
         Row {

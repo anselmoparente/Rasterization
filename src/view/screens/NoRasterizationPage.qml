@@ -4,7 +4,7 @@ import QtQuick.Controls 2.15
 Item {
     id: noRasterizationPage
     objectName: "Home Page"
-    Keys.onReturnPressed: noFilePage.forceActiveFocus()
+    Keys.onReturnPressed: noRasterizationPage.forceActiveFocus()
 
     Text {
         id: noFileText
@@ -12,7 +12,7 @@ Item {
         opacity: 0.3
         font.pixelSize: 0.022 * parent.height
         font.family: applicationWindow.font.family
-        text: qsTr("Nenhum Documento Carregado")
+        text: qsTr("Nenhuma Rasterização Completa")
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
     }

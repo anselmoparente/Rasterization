@@ -46,7 +46,7 @@ ApplicationWindow {
         StackView {
             id: routes
             anchors.fill: parent
-            initialItem: Qt.resolvedUrl("screens/RasterizationLines.qml")
+            initialItem: Qt.resolvedUrl("screens/NoRasterizationPage.qml")
 
             pushEnter: Transition {
                 PropertyAnimation {
