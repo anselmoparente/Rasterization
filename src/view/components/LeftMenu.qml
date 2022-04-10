@@ -53,6 +53,7 @@ Rectangle {
 
             onClicked: {
                 btnPressed = "buttonRasterizationLines"
+                internal.continueFunction()
             }
         }
 

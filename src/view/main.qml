@@ -9,6 +9,7 @@ import "basic"
 
 ApplicationWindow {
     id: applicationWindow
+    property alias actualPage: routes.currentItem
     property int windowStatus: 0
 
     width: 1280
@@ -45,7 +46,7 @@ ApplicationWindow {
         StackView {
             id: routes
             anchors.fill: parent
-            initialItem: Qt.resolvedUrl("screens/NoRasterizationPage.qml")
+            initialItem: Qt.resolvedUrl("screens/RasterizationLines.qml")
 
             pushEnter: Transition {
                 PropertyAnimation {
