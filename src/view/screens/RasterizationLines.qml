@@ -4,13 +4,13 @@ import QtQuick.Controls 2.15
 Item {
     id: rasterizationLines
     visible: true
-    width: 500
-    height: 500
+    anchors.fill: parent
     objectName: "Rasterization Lines Page"
     
     Keys.onReturnPressed: rasterizationLines.forceActiveFocus()
     
     Column{
+        anchors.centerIn: parent
         Row {
             spacing: width * 0.1
             Column{
@@ -23,10 +23,12 @@ Item {
                     border.color: 'gray'
                     border.width: 1
 
-                    TextInput{
+                    TextField{
                         width: parent.width
                         height: parent.height
-                        
+                        validator: RegExpValidator{
+                            regExp: /^[0-9]{0,2}$/
+                        }
                     }
                 }
         }
@@ -41,9 +43,12 @@ Item {
                     border.color: 'gray'
                     border.width: 1
 
-                    TextInput{
+                    TextField{
                         width: parent.width
                         height: parent.height
+                        validator: RegExpValidator{
+                            regExp: /^[0-9]{0,2}$/
+                        }
                     }
                 }
             }
@@ -61,9 +66,12 @@ Item {
                     border.color: 'gray'
                     border.width: 1
 
-                    TextInput{
+                    TextField{
                         width: parent.width
                         height: parent.height
+                        validator: RegExpValidator{
+                            regExp: /^[0-9]{0,2}$/
+                        }
                         
                     }
                 }
@@ -79,9 +87,12 @@ Item {
                     border.color: 'gray'
                     border.width: 1
 
-                    TextInput{
+                    TextField{
                         width: parent.width
                         height: parent.height
+                        validator: RegExpValidator{
+                            regExp: /^[0-9]{0,2}$/
+                        }
                     }
                 }
             }
@@ -99,9 +110,12 @@ Item {
                     border.color: 'gray'
                     border.width: 1
 
-                    TextInput{
+                    TextField{
                         width: parent.width
                         height: parent.height
+                        validator: RegExpValidator{
+                            regExp: /^[0-9]{0,2}$/
+                        }
                         
                     }
                 }
@@ -117,9 +131,12 @@ Item {
                     border.color: 'gray'
                     border.width: 1
 
-                    TextInput{
+                    TextField{
                         width: parent.width
                         height: parent.height
+                        validator: RegExpValidator{
+                            regExp: /^[0-9]{0,2}$/
+                        }
                     }
                 }
             }
@@ -137,9 +154,12 @@ Item {
                     border.color: 'gray'
                     border.width: 1
 
-                    TextInput{
+                    TextField{
                         width: parent.width
                         height: parent.height
+                        validator: RegExpValidator{
+                            regExp: /^[0-9]{0,2}$/
+                        }
                         
                     }
                 }
@@ -155,9 +175,12 @@ Item {
                     border.color: 'gray'
                     border.width: 1
 
-                    TextInput{
+                    TextField{
                         width: parent.width
                         height: parent.height
+                        validator: RegExpValidator{
+                            regExp: /^[0-9]{0,2}$/
+                        }
                     }
                 }
             }
@@ -175,9 +198,12 @@ Item {
                     border.color: 'gray'
                     border.width: 1
 
-                    TextInput{
+                    TextField{
                         width: parent.width
                         height: parent.height
+                        validator: RegExpValidator{
+                            regExp: /^[0-9]{0,2}$/
+                        }
                         
                     }
                 }
@@ -193,9 +219,12 @@ Item {
                     border.color: 'gray'
                     border.width: 1
 
-                    TextInput{
+                    TextField{
                         width: parent.width
                         height: parent.height
+                        validator: RegExpValidator{
+                            regExp: /^[0-9]{0,2}$/
+                        }
                     }
                 }
             }
