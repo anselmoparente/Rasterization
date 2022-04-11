@@ -1,6 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Controls 1.4
+import QtQuick.Layouts 1.15
 
 Item {
     id: rasterizationPolygons
@@ -12,6 +13,23 @@ Item {
     Column{
         anchors.centerIn: parent
         spacing: rasterizationPolygons.height * 0.02
+ 
+        GroupBox {
+            title: qsTr("Polígono")
+            ColumnLayout {
+                anchors.fill: parent
+                RadioButton {
+                    text: qsTr("Triangulo Equilátero")
+                }
+                RadioButton { 
+                    text: qsTr("Quadrado")
+                }
+                RadioButton  { 
+                    text: qsTr("Hexágono") 
+                }
+            }
+        }
+        
         Row {
             spacing: rasterizationPolygons.width * 0.03
             Column{
