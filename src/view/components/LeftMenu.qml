@@ -40,7 +40,7 @@ Rectangle {
             }
             else if(btnPressed == "buttonHomePage"){
                 routes.pop()
-                routes.push(Qt.resolvedUrl("../screens/NoRasterizationPage.qml"))
+                routes.push(Qt.resolvedUrl("../screens/HomePage.qml"))
             }
         }
 
