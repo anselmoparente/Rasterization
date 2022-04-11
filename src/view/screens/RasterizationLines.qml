@@ -4,7 +4,8 @@ import QtQuick.Controls 2.15
 Item {
     id: rasterizationLines
     visible: true
-    anchors.fill: parent
+    width: parent.width
+    height: parent.height
     objectName: "Rasterization Lines Page"
     
     Keys.onReturnPressed: rasterizationLines.forceActiveFocus()
@@ -12,7 +13,7 @@ Item {
     Column{
         anchors.centerIn: parent
         Row {
-            spacing: width * 0.1
+            spacing: rasterizationLines.width * 0.03
             Column{
                 Text{
                     text: "Ponto"
@@ -55,7 +56,7 @@ Item {
         }
 
         Row {
-            spacing: width * 0.1
+            spacing: rasterizationLines.width * 0.03
             Column{
                 Text{
                     text: "Ponto"
@@ -99,7 +100,7 @@ Item {
         }
 
         Row {
-            spacing: width * 0.1
+            spacing: rasterizationLines.width * 0.03
             Column{
                 Text{
                     text: "Ponto"
@@ -143,7 +144,7 @@ Item {
         }
 
         Row {
-            spacing: width * 0.1
+            spacing: rasterizationLines.width * 0.03
             Column{
                 Text{
                     text: "Ponto"
@@ -187,7 +188,7 @@ Item {
         }
 
         Row {
-            spacing: width * 0.1
+            spacing: rasterizationLines.width * 0.03
             Column{
                 Text{
                     text: "Ponto"
