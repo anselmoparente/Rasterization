@@ -8,6 +8,7 @@ Item {
 
     Text {
         id: noFileText
+        anchors.centerIn: parent
         color: "#000000"
         opacity: 0.3
         font.pixelSize: 0.022 * parent.height
