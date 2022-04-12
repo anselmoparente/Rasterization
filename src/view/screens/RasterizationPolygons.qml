@@ -6,6 +6,7 @@ Item {
     id: rasterizationPolygons
     visible: true
     objectName: "Rasterization Polygons Page"
+    property int checkedButton: 0
     
     Column{
         anchors.centerIn: parent
@@ -19,14 +20,29 @@ Item {
                     id: triangleButton
                     checked: true
                     text: qsTr("Triangulo Equilátero")
+                    onCheckedChanged:{
+                        if(checked){
+                            checkedButton = 0
+                        }
+                    }
                 }
                 RadioButton {
                     id: squareButton
                     text: qsTr("Quadrado")
+                    onCheckedChanged:{
+                        if(checked){
+                            checkedButton = 1
+                        }
+                    }
                 }
                 RadioButton  {
                     id: hexaButton
                     text: qsTr("Hexágono") 
+                    onCheckedChanged:{
+                        if(checked){
+                            checkedButton = 2
+                        }
+                    }
                 }
             }
         }
@@ -337,6 +353,18 @@ Item {
                         }
                     }
                 }
+            }
+        }
+
+
+        Button{
+            id: rasterPolygons
+            width: rasterizationPolygons.width * 0.265
+            height: rasterizationPolygons.height * 0.04
+            text: "Rasterizar"
+
+            onClicked: {
+                print(checkedButton)
             }
         }
     }
