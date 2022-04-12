@@ -123,7 +123,7 @@ Item {
             text: "Rasterizar"
 
             onClicked: {
-                funcaoRaster.algoritimoBresenham(x1.getText(0,2), y1.getText(0,2), x2.getText(0,2), y2.getText(0,2))
+                funcaoRaster.treatLineCoordinates(x1.getText(0,2), y1.getText(0,2), x2.getText(0,2), y2.getText(0,2))
             }
         }
     }
