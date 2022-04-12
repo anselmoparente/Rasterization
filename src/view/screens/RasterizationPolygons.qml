@@ -32,11 +32,14 @@ Item {
         
         Row {
             spacing: rasterizationPolygons.width * 0.03
+
+            Text{
+                text: "Ponto A (x,y)"
+                font.pixelSize: rasterizationPolygons.width * 0.015
+            }
+
             Column{
-                Text{
-                    text: "Ponto"
-                    font.pixelSize: rasterizationPolygons.width * 0.015
-                }
+
                 Rectangle {
                     width: rasterizationPolygons.width * 0.04
                     height: rasterizationPolygons.height * 0.04
@@ -57,10 +60,7 @@ Item {
         }
 
             Column{
-                Text{
-                    text: "Ponto"
-                    font.pixelSize: rasterizationPolygons.width * 0.015
-                }
+
                 Rectangle {
                     width: rasterizationPolygons.width * 0.04
                     height: rasterizationPolygons.height * 0.04
@@ -83,11 +83,14 @@ Item {
 
         Row {
             spacing: rasterizationPolygons.width * 0.03
+            
+            Text{
+                text: "Ponto B (x,y)"
+                font.pixelSize: rasterizationPolygons.width * 0.015
+            }
+
             Column{
-                Text{
-                    text: "Ponto"
-                    font.pixelSize: rasterizationPolygons.width * 0.015
-                }
+
                 Rectangle {
                     width: rasterizationPolygons.width * 0.04
                     height: rasterizationPolygons.height * 0.04
@@ -108,10 +111,7 @@ Item {
         }
 
             Column{
-                Text{
-                    text: "Ponto"
-                    font.pixelSize: rasterizationPolygons.width * 0.015
-                }
+
                 Rectangle {
                     width: rasterizationPolygons.width * 0.04
                     height: rasterizationPolygons.height * 0.04
@@ -134,11 +134,14 @@ Item {
 
         Row {
             spacing: rasterizationPolygons.width * 0.03
+            
+            Text{
+                text: "Ponto C (x,y)"
+                font.pixelSize: rasterizationPolygons.width * 0.015
+            }
+
             Column{
-                Text{
-                    text: "Ponto"
-                    font.pixelSize: rasterizationPolygons.width * 0.015
-                }
+
                 Rectangle {
                     width: rasterizationPolygons.width * 0.04
                     height: rasterizationPolygons.height * 0.04
@@ -159,10 +162,7 @@ Item {
         }
 
             Column{
-                Text{
-                    text: "Ponto"
-                    font.pixelSize: rasterizationPolygons.width * 0.015
-                }
+
                 Rectangle {
                     width: rasterizationPolygons.width * 0.04
                     height: rasterizationPolygons.height * 0.04
@@ -185,11 +185,14 @@ Item {
 
         Row {
             spacing: rasterizationPolygons.width * 0.03
+            
+            Text{
+                text: "Ponto D (x,y)"
+                font.pixelSize: rasterizationPolygons.width * 0.015
+            }
+
             Column{
-                Text{
-                    text: "Ponto"
-                    font.pixelSize: rasterizationPolygons.width * 0.015
-                }
+
                 Rectangle {
                     width: rasterizationPolygons.width * 0.04
                     height: rasterizationPolygons.height * 0.04
@@ -210,10 +213,7 @@ Item {
         }
 
             Column{
-                Text{
-                    text: "Ponto"
-                    font.pixelSize: rasterizationPolygons.width * 0.015
-                }
+
                 Rectangle {
                     width: rasterizationPolygons.width * 0.04
                     height: rasterizationPolygons.height * 0.04
@@ -236,11 +236,14 @@ Item {
 
         Row {
             spacing: rasterizationPolygons.width * 0.03
+            
+            Text{
+                text: "Ponto E (x,y)"
+                font.pixelSize: rasterizationPolygons.width * 0.015
+            }
+
             Column{
-                Text{
-                    text: "Ponto"
-                    font.pixelSize: rasterizationPolygons.width * 0.015
-                }
+
                 Rectangle {
                     width: rasterizationPolygons.width * 0.04
                     height: rasterizationPolygons.height * 0.04
@@ -261,10 +264,7 @@ Item {
             }
 
             Column{
-                Text{
-                    text: "Ponto"
-                    font.pixelSize: rasterizationPolygons.width * 0.015
-                }
+
                 Rectangle {
                     width: rasterizationPolygons.width * 0.04
                     height: rasterizationPolygons.height * 0.04
@@ -287,11 +287,14 @@ Item {
         
         Row {
             spacing: rasterizationPolygons.width * 0.03
+            
+            Text{
+                text: "Ponto F (x,y)"
+                font.pixelSize: rasterizationPolygons.width * 0.015
+            }
+
             Column{
-                Text{
-                    text: "Ponto"
-                    font.pixelSize: rasterizationPolygons.width * 0.015
-                }
+
                 Rectangle {
                     width: rasterizationPolygons.width * 0.04
                     height: rasterizationPolygons.height * 0.04
@@ -312,10 +315,7 @@ Item {
             }
 
             Column{
-                Text{
-                    text: "Ponto"
-                    font.pixelSize: rasterizationPolygons.width * 0.015
-                }
+
                 Rectangle {
                     width: rasterizationPolygons.width * 0.04
                     height: rasterizationPolygons.height * 0.04
