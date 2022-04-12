@@ -1,14 +1,11 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
-import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.15
 
 Item {
     id: rasterizationPolygons
     visible: true
     objectName: "Rasterization Polygons Page"
-    
-    Keys.onReturnPressed: rasterizationPolygons.forceActiveFocus()
     
     Column{
         anchors.centerIn: parent
@@ -19,12 +16,16 @@ Item {
             ColumnLayout {
                 anchors.fill: parent
                 RadioButton {
+                    id: triangleButton
+                    checked: true
                     text: qsTr("Triangulo Equilátero")
                 }
-                RadioButton { 
+                RadioButton {
+                    id: squareButton
                     text: qsTr("Quadrado")
                 }
-                RadioButton  { 
+                RadioButton  {
+                    id: hexaButton
                     text: qsTr("Hexágono") 
                 }
             }
@@ -184,6 +185,7 @@ Item {
         }
 
         Row {
+            visible: hexaButton.checked || squareButton.checked
             spacing: rasterizationPolygons.width * 0.03
             
             Text{
@@ -235,6 +237,7 @@ Item {
         }
 
         Row {
+            visible: hexaButton.checked
             spacing: rasterizationPolygons.width * 0.03
             
             Text{
@@ -286,6 +289,7 @@ Item {
         }
         
         Row {
+            visible: hexaButton.checked
             spacing: rasterizationPolygons.width * 0.03
             
             Text{

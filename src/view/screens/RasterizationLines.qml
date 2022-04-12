@@ -1,14 +1,11 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
-import QtQuick.Controls 1.4
 
 Item {
     id: rasterizationLines
     visible: true
     objectName: "Rasterization Lines Page"
-    
-    Keys.onReturnPressed: rasterizationLines.forceActiveFocus()
-    
+        
     Column{
         anchors.centerIn: parent
         spacing: rasterizationLines.height * 0.02
