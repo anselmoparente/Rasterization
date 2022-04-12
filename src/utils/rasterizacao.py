@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import turtle as tt
+# import turtle as tt
 from PyQt5.QtCore import QObject, pyqtSlot, QVariant
 import matplotlib as mpl
 from numpy import array
@@ -43,32 +43,6 @@ class Rasterizacao(QObject):
 		self.pointsOnX.append(xm + 0.5)
 		self.pointsOnY.append(ym + 0.5)
 
-	def getYByX(self, originalPoints, coeficientResolution):
-		X1 = originalPoints[0][0]
-		Y1 = originalPoints[0][1]
-		X2 = originalPoints[1][0]
-		Y2 = originalPoints[1][1]
-		if(X2 - X1 != 0):
-			deltaX = (X2 - X1)
-		else:
-			deltaX = 0
-		
-		if(Y2 - Y1 != 0):
-			deltaY = (Y2 - Y1)
-		else:
-			deltaY = 0
-		
-		if deltaX == 0:
-			M = 0
-		else:
-			M = deltaY/deltaX
-		B = Y1 - M * X1
-
-		newXValue = X2 * coeficientResolution
-		newYValue = M * newXValue + B
-
-		return int(newYValue)
-
 	def doRasterization(self, pointsArray):
 		resizeCoeficientsArray = [1, 3, 6]
 		figure = plt.figure(figsize=(10, 7))
@@ -86,43 +60,9 @@ class Rasterizacao(QObject):
 				try:
 					X2 = pointsArray[i+1][0]
 					Y2 = pointsArray[i+1][1]
-					if X2 < X1:
-						# MANIPULACAO DO X
-						X = X2
-						X2 = X1
-						X1 = X
-						# MANIPULACAO DO Y
-						Y = Y2
-						Y2 = Y1
-						Y1 = Y
-					# MULTIPLICA PELO COEFICIENTE DE RESOLUCAO
-					Y2 = self.getYByX([
-						[X1, Y1],
-						[X2, Y2]
-					], coeficientResolution)
-					X2 = X2*coeficientResolution
-					# Y2*coeficientResolution
 				except IndexError:
 					X2 = pointsArray[0][0]
 					Y2 = pointsArray[0][1]
-					if X2 < X1:
-						# MANIPULACAO DO X
-						X = X2
-						X2 = X1
-						X1 = X
-						# MANIPULACAO DO Y
-						Y = Y2
-						Y2 = Y1
-						Y1 = Y
-					# MULTIPLICA PELO COEFICIENTE DE RESOLUCAO
-					Y2 = self.getYByX([
-						[X1, Y1],
-						[X2, Y2]
-					], coeficientResolution)
-					X2 = X2*coeficientResolution
-				
-				print(X, Y)
-				print(X1, Y1, X2, Y2)
 
 				if (X2 - X1 != 0):
 					deltaX = (X2 - X1)
@@ -145,10 +85,16 @@ class Rasterizacao(QObject):
 				
 				self.createPointsFragments(X,Y)
 				if(abs(deltaX) > abs(deltaY)):
-					while(X < X2):
-						X=X+1
-						Y=M*X + B
-						self.createPointsFragments(X,Y)
+					if (X < X2):
+						while(X < X2):
+							X = X+1
+							Y=M*X + B
+							self.createPointsFragments(X,Y)
+					else:
+						while(X > X2):
+							X=X-1
+							Y=M*X + B
+							self.createPointsFragments(X,Y)
 				else:
 					if (Y < Y2):
 						while(Y < Y2):
@@ -193,3 +139,60 @@ class Rasterizacao(QObject):
 		self.originalResolution = graphResolution
 		self.graphResolution = graphResolution
 		self.doRasterization(pointsArray)
+
+	@pyqtSlot(QVariant, QVariant, QVariant, QVariant, QVariant, QVariant, QVariant, QVariant, QVariant, QVariant, QVariant, QVariant, QVariant)
+	def treatPolygonsCoordinates(self, polygonType, x1, y1, x2, y2, x3, y3, x4 = None, y4 = None, x5 = None, y5 = None, x6 = None, y6 = None):
+		if (polygonType == 'TE' ):
+			pointsArray = [
+				[x1, y1],
+				[x2, y2],
+				[x3, y3]
+			]
+			self.graphsFileNames = [
+				'triangleGraph1.png',
+				'triangleGraph2.png',
+				'triangleGraph3.png',
+			]
+		elif (polygonType == 'R'):
+			pointsArray = [
+				[x1, y1],
+				[x2, y2],
+				[x3, y3],
+				[x4, y4],
+			]
+			self.graphsFileNames = [
+				'rectangleGraph1.png',
+				'rectangleGraph2.png',
+				'rectangleGraph3.png',
+			]
+		elif (polygonType == 'H'):
+			pointsArray = [
+				[x1, y1],
+				[x2, y2],
+				[x3, y3],
+				[x4, y4],
+				[x5, y5],
+				[x6, y6]
+			]
+			self.graphsFileNames = [
+				'hexagonGraph1.png',
+				'hexagonGraph2.png',
+				'hexagonGraph3.png',
+			]
+		else:
+			return 0
+
+		graphResolution = self.getGraphResolutions(pointsArray)
+		self.originalResolution = graphResolution
+		self.graphResolution = graphResolution
+		# self.doRasterization(pointsArray)
+		# print(x1)
+		# x1 = int(x1) 
+		# y1 = int(y1)
+		# x2 = int(x2)
+		# y2 = int(y2)
+
+		# graphResolution = self.getGraphResolutions(pointsArray)
+		# self.originalResolution = graphResolution
+		# self.graphResolution = graphResolution
+		# self.doRasterization(pointsArray)
