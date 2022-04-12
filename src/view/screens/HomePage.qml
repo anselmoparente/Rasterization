@@ -39,5 +39,13 @@ Item {
                 }
             }
         }
+
+        Image {
+            id: imageRaster
+            width: homePage.width * 0.8
+            height: homePage.height * 0.8
+            source: "../../assets/lineGraph3.png"
+        }
+
     }
 }
