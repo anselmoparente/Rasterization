@@ -43,13 +43,40 @@ class Rasterizacao(QObject):
 		self.pointsOnX.append(xm + 0.5)
 		self.pointsOnY.append(ym + 0.5)
 
+	def getYByX(self, originalPoints, coeficientResolution):
+		X1 = originalPoints[0][0]
+		Y1 = originalPoints[0][1]
+		X2 = originalPoints[1][0]
+		Y2 = originalPoints[1][1]
+		if(X2 - X1 != 0):
+			deltaX = (X2 - X1)
+		else:
+			deltaX = 0
+		
+		if(Y2 - Y1 != 0):
+			deltaY = (Y2 - Y1)
+		else:
+			deltaY = 0
+		
+		if deltaX == 0:
+			M = 0
+		else:
+			M = deltaY/deltaX
+		B = Y1 - M * X1
+
+		newXValue = X2 * coeficientResolution
+		newYValue = M * newXValue + B
+
+		return int(newYValue)
+
 	def doRasterization(self, pointsArray):
 		resizeCoeficientsArray = [1, 3, 6]
 		figure = plt.figure(figsize=(10, 7))
 
 		for iteradorAux in range(len(resizeCoeficientsArray)):
+			coeficientResolution = resizeCoeficientsArray[iteradorAux]
 			# MULTIPLICA PELO COEFICIENTE DE RESOLUCAO DE PIXELS
-			self.graphResolution = self.originalResolution * resizeCoeficientsArray[iteradorAux]
+			self.graphResolution = self.originalResolution * coeficientResolution
 
 			for i in range(len(pointsArray)):
 				X1 = pointsArray[i][0]
@@ -68,9 +95,13 @@ class Rasterizacao(QObject):
 						Y = Y2
 						Y2 = Y1
 						Y1 = Y
-						# MULTIPLICA PELO COEFICIENTE DE RESOLUCAO
-						X2 = X2
-						Y2 = Y2
+					# MULTIPLICA PELO COEFICIENTE DE RESOLUCAO
+					Y2 = self.getYByX([
+						[X1, Y1],
+						[X2, Y2]
+					], coeficientResolution)
+					X2 = X2*coeficientResolution
+					# Y2*coeficientResolution
 				except IndexError:
 					X2 = pointsArray[0][0]
 					Y2 = pointsArray[0][1]
@@ -83,26 +114,31 @@ class Rasterizacao(QObject):
 						Y = Y2
 						Y2 = Y1
 						Y1 = Y
-						# MULTIPLICA PELO COEFICIENTE DE RESOLUCAO
-						X2 = X2
-						Y2 = Y2
+					# MULTIPLICA PELO COEFICIENTE DE RESOLUCAO
+					Y2 = self.getYByX([
+						[X1, Y1],
+						[X2, Y2]
+					], coeficientResolution)
+					X2 = X2*coeficientResolution
 				
-				if(X2 - X1 != 0):
-					deltaX= (X2-X1)
+				print(X, Y)
+				print(X1, Y1, X2, Y2)
+
+				if (X2 - X1 != 0):
+					deltaX = (X2 - X1)
 				else:
-					deltaX=0
+					deltaX = 0
 				
-				if(Y2 - Y1 != 0):
-					deltaY= (Y2-Y1)
+				if (Y2 - Y1 != 0):
+					deltaY = (Y2 - Y1)
 				else:
-					deltaY=0
+					deltaY = 0
 				
-				
-				if deltaX==0:
-					M=0
+				if deltaX == 0:
+					M = 0
 				else:
 					M = deltaY/deltaX
-				B= Y-M*X
+				B = Y - M * X
 				
 				self.pointsOnX = []
 				self.pointsOnY = []
