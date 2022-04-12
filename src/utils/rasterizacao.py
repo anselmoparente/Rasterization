@@ -1,61 +1,159 @@
 # -*- coding: utf-8 -*-
 import turtle as tt
 from PyQt5.QtCore import QObject, pyqtSlot, QVariant
-import math
-import os
+import matplotlib as mpl
+from numpy import array
+mpl.use('Agg')  
+import matplotlib.pyplot as plt
+from math import floor
 
 class Rasterizacao(QObject):
 
 	def __init__(self):
 		QObject.__init__(self)
+		self.originalResolution = 0,
+		self.graphsFileNames = []
+		self.graphResolution = [],
+		self.pointsOnX = [],
+		self.pointsOnY = []
+
+	def getGraphResolutions(self, arrayPoints):
+
+		higherNumber = abs(arrayPoints[0][0])
+		for i in arrayPoints:
+			for j in i:
+				if abs(j) > higherNumber:
+					higherNumber = abs(j)
+	
+		return higherNumber + 4
+
+	def plotGraph(self, figure, fileName):
+		plt.title('Resolution={}x{}'.format(self.graphResolution, self.graphResolution))
+		plt.margins(x=0, y=0)
+		plt.ylabel('Eixo Y', labelpad = 7)
+		plt.xlabel('Eixo X', labelpad = 7)
+		plt.grid(color = 'black', linestyle = '-', linewidth = 0.8)
+		plt.xticks(range(0, self.graphResolution + 1), rotation='vertical')
+		plt.yticks(range(0, self.graphResolution + 1))
+		figure.savefig('./src/assets/' + str(fileName))
+
+	def createPointsFragments(self, x, y):
+		xm = floor(x)
+		ym = floor(y)
+		self.pointsOnX.append(xm + 0.5)
+		self.pointsOnY.append(ym + 0.5)
+
+	def doRasterization(self, pointsArray):
+		resizeCoeficientsArray = [1, 3, 6]
+		figure = plt.figure(figsize=(10, 7))
+
+		for iteradorAux in range(len(resizeCoeficientsArray)):
+			# MULTIPLICA PELO COEFICIENTE DE RESOLUCAO DE PIXELS
+			self.graphResolution = self.originalResolution * resizeCoeficientsArray[iteradorAux]
+
+			for i in range(len(pointsArray)):
+				X1 = pointsArray[i][0]
+				Y1 = pointsArray[i][1]
+				X = X1
+				Y = Y1
+				try:
+					X2 = pointsArray[i+1][0]
+					Y2 = pointsArray[i+1][1]
+					if X2 < X1:
+						# MANIPULACAO DO X
+						X = X2
+						X2 = X1
+						X1 = X
+						# MANIPULACAO DO Y
+						Y = Y2
+						Y2 = Y1
+						Y1 = Y
+						# MULTIPLICA PELO COEFICIENTE DE RESOLUCAO
+						X2 = X2
+						Y2 = Y2
+				except IndexError:
+					X2 = pointsArray[0][0]
+					Y2 = pointsArray[0][1]
+					if X2 < X1:
+						# MANIPULACAO DO X
+						X = X2
+						X2 = X1
+						X1 = X
+						# MANIPULACAO DO Y
+						Y = Y2
+						Y2 = Y1
+						Y1 = Y
+						# MULTIPLICA PELO COEFICIENTE DE RESOLUCAO
+						X2 = X2
+						Y2 = Y2
+				
+				if(X2 - X1 != 0):
+					deltaX= (X2-X1)
+				else:
+					deltaX=0
+				
+				if(Y2 - Y1 != 0):
+					deltaY= (Y2-Y1)
+				else:
+					deltaY=0
+				
+				
+				if deltaX==0:
+					M=0
+				else:
+					M = deltaY/deltaX
+				B= Y-M*X
+				
+				self.pointsOnX = []
+				self.pointsOnY = []
+				
+				self.createPointsFragments(X,Y)
+				if(abs(deltaX) > abs(deltaY)):
+					while(X < X2):
+						X=X+1
+						Y=M*X + B
+						self.createPointsFragments(X,Y)
+				else:
+					if (Y < Y2):
+						while(Y < Y2):
+							Y=Y+1
+							if M==0:
+								X = X2
+							else:
+								X=(Y-B)/M
+								self.createPointsFragments(X,Y)
+					else:
+						while(Y > Y2):
+							Y=Y-1
+							if M==0:
+								X = X2
+							else:
+								X=(Y-B)/M
+								self.createPointsFragments(X,Y)
+					
+				plt.plot(self.pointsOnX,self.pointsOnY, 'bs')
+
+			self.plotGraph(figure, self.graphsFileNames[iteradorAux])
 
 	@pyqtSlot(QVariant, QVariant, QVariant, QVariant)
-	def algoritimoBresenham(self, x1, x2, x3, x4):
-		print(x1, x2, x3, x4)
-		
-		# arrayPontos = [
-		# 	[0, 0],
-		# 	[20,0],
-		# 	[10,20],
-		# 	[0,20]
-		# ]
+	def treatLineCoordinates(self, x1, y1, x2, y2):
+		x1 = int(x1) 
+		y1 = int(y1)
+		x2 = int(x2)
+		y2 = int(y2)
 
-		# for i in range(len(arrayPontos)):
-			
-		# 	x0 = arrayPontos[i][0]
-		# 	y0 = arrayPontos[i][1]
-		# 	try:
-		# 		x1 = arrayPontos[i+1][0]
-		# 		y1 = arrayPontos[i+1][1]
-		# 	except IndexError:
-		# 		x1 = arrayPontos[0][0]
-		# 		y1 = arrayPontos[0][1]
-			
-		# 	dx = abs(x1 - x0)
-		# 	dy = abs(y1 - y0)
-		# 	x, y = x0, y0
-		# 	sx = -1 if x0 > x1 else 1
-		# 	sy = -1 if y0 > y1 else 1
-		# 	if dx > dy:
-		# 		err = dx / 2.0
-		# 		while x != x1:
-		# 			print(x,y)
-		# 			# set_pixel(x,y)
-		# 			err -= dy
-		# 			if err < 0:
-		# 				y += sy
-		# 				err += dx
-		# 			x += sx
-		# 	else:
-		# 		err = dy / 2.0
-		# 		while y != y1:
-		# 			print(x,y)
-		# 			# set_pixel(x,y)
-		# 			err -= dx
-		# 			if err < 0:
-		# 				x += sx
-		# 				err += dy
-		# 			y += sy
+		self.graphsFileNames = [
+			'lineGraph1.png',
+			'lineGraph2.png',
+			'lineGraph3.png',
+		]
 
-		# 	print(x,y)
-			# set_pixel(x,y)
+		pointsArray = [
+			[x1, y1],
+			[x2, y2]
+		]
+
+		graphResolution = self.getGraphResolutions(pointsArray)
+		self.originalResolution = graphResolution
+		self.graphResolution = graphResolution
+		self.doRasterization(pointsArray)
