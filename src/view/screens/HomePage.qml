@@ -4,7 +4,7 @@ import QtQuick.Layouts 1.15
 
 Item {
     id: homePage
-    property var imagesSources: ["../../assets/lineGraph1.png", "../../assets/lineGraph2.png", "../../assets/lineGraph3.png"]
+    property var imagesSources: ["../../assets/res20_20.png", "../../assets/res60_60.png", "../../assets/res120_120.png"]
     property int checkedButton: 0
     property bool isFolderEmpty: true
 

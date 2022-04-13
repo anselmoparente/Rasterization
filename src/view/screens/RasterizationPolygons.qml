@@ -64,6 +64,7 @@ Item {
                     border.width: 1
 
                     TextField{
+                        id: x1
                         width: rasterizationPolygons.width * 0.04
                         height: parent.height
                         font.pixelSize: rasterizationPolygons.width * 0.012
@@ -85,6 +86,7 @@ Item {
                     border.width: 1
 
                     TextField{
+                        id: y1
                         width: rasterizationPolygons.width * 0.04
                         height: parent.height
                         font.pixelSize: rasterizationPolygons.width * 0.012
@@ -115,6 +117,7 @@ Item {
                     border.width: 1
 
                     TextField{
+                        id: x2
                         width: rasterizationPolygons.width * 0.04
                         height: parent.height
                         font.pixelSize: rasterizationPolygons.width * 0.012
@@ -136,6 +139,7 @@ Item {
                     border.width: 1
 
                     TextField{
+                        id: y2
                         width: rasterizationPolygons.width * 0.04
                         height: parent.height
                         font.pixelSize: rasterizationPolygons.width * 0.012
@@ -166,6 +170,7 @@ Item {
                     border.width: 1
 
                     TextField{
+                        id: x3
                         width: rasterizationPolygons.width * 0.04
                         height: parent.height
                         font.pixelSize: rasterizationPolygons.width * 0.012
@@ -187,6 +192,7 @@ Item {
                     border.width: 1
 
                     TextField{
+                        id: y3
                         width: rasterizationPolygons.width * 0.04
                         height: parent.height
                         font.pixelSize: rasterizationPolygons.width * 0.012
@@ -218,6 +224,7 @@ Item {
                     border.width: 1
 
                     TextField{
+                        id: x4
                         width: rasterizationPolygons.width * 0.04
                         height: parent.height
                         font.pixelSize: rasterizationPolygons.width * 0.012
@@ -239,6 +246,7 @@ Item {
                     border.width: 1
 
                     TextField{
+                        id: y4
                         width: rasterizationPolygons.width * 0.04
                         height: parent.height
                         font.pixelSize: rasterizationPolygons.width * 0.012
@@ -270,6 +278,7 @@ Item {
                     border.width: 1
 
                     TextField{
+                        id: x5
                         width: rasterizationPolygons.width * 0.04
                         height: parent.height
                         font.pixelSize: rasterizationPolygons.width * 0.012
@@ -291,6 +300,7 @@ Item {
                     border.width: 1
 
                     TextField{
+                        id: y5
                         width: rasterizationPolygons.width * 0.04
                         height: parent.height
                         font.pixelSize: rasterizationPolygons.width * 0.012
@@ -322,6 +332,7 @@ Item {
                     border.width: 1
 
                     TextField{
+                        id: x6
                         width: rasterizationPolygons.width * 0.04
                         height: parent.height
                         font.pixelSize: rasterizationPolygons.width * 0.012
@@ -343,6 +354,7 @@ Item {
                     border.width: 1
 
                     TextField{
+                        id: y6
                         width: rasterizationPolygons.width * 0.04
                         height: parent.height
                         font.pixelSize: rasterizationPolygons.width * 0.012
@@ -364,7 +376,8 @@ Item {
             text: "Rasterizar"
 
             onClicked: {
-                print(checkedButton)
+                // CALL FUNCTION
+                funcaoRaster.treatPolygonsCoordinates(checkedButton, x1.getText(0,2), y1.getText(0,2), x2.getText(0,2), y2.getText(0,2), x3.getText(0,2), y3.getText(0,2), x4.getText(0,2), y4.getText(0,2), x5.getText(0,2), y5.getText(0,2), x6.getText(0,2), y6.getText(0,2))
             }
         }
     }
