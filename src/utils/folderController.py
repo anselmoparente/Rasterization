@@ -8,7 +8,7 @@ class Folder(QObject):
 
     @pyqtSlot()
     def folderIsEmpty(self):
-        if(len(os.listdir('src/assets/')) == 0):
+        if(len(os.listdir('src/assets/')) == 0 or len(os.listdir('src/assets/')) == 1):
             self.emptyFolder.emit(True)
         else: 
             self.emptyFolder.emit(False)
