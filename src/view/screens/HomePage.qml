@@ -18,7 +18,7 @@ Item {
             visible: isFolderEmpty
             color: "#000000"
             opacity: 0.3
-            font.pixelSize: homePage.width * 0.01
+            font.pixelSize: homePage.width * 0.03
             font.family: applicationWindow.font.family
             text: qsTr("Nenhuma Rasterização Completa")
             horizontalAlignment: Text.AlignHCenter
