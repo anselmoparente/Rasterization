@@ -1,3 +1,9 @@
+# CODE CREATED BY
+# LUCAS FIRMIANO SILVA GIRAO
+# ANSELMO PARENTE MARTINS
+
+# ALL RIGHTS RESERVED
+
 # -*- coding: utf-8 -*-
 # import turtle as tt
 from PyQt5.QtCore import QObject, pyqtSlot, QVariant
@@ -22,6 +28,7 @@ class Rasterizacao(QObject):
 		self.pointsOnY = []
 
 	def plotGraph(self, figure, fileName):
+		# FUNCTION TO PLOT THE GRAPH
 		plt.title('Resolution={}x{}'.format(self.graphResolution, self.graphResolution))
 		plt.margins(x=0, y=0)
 		plt.ylabel('Eixo Y', labelpad = 7)
@@ -32,21 +39,26 @@ class Rasterizacao(QObject):
 		figure.savefig('./src/assets/' + str(fileName))
 
 	def createPointsFragments(self, x, y):
+		# GET THE CENTER OF THE POINT
+		# THIS FUNCTION IS REPONSIBLE TO GET THE CENTER OF A PIXEL TO PLOT THE POINT
 		xm = floor(x)
 		ym = floor(y)
 		self.pointsOnX.append(xm + 0.5)
 		self.pointsOnY.append(ym + 0.5)
 
 	def doRasterization(self, pointsArray):
-		resizeCoeficientsArray = [1, 3, 6]
+		# RASTERIZATION METHOD
+
+		resizeCoeficientsArray = [1, 3, 6] # COEFICIENT TO RESIZE THE DEFAULT RESOLUTION
 		figure = plt.figure(figsize=(10, 7))
 
 		for iteradorAux in range(len(resizeCoeficientsArray)):
 			coeficientResolution = resizeCoeficientsArray[iteradorAux]
-			# MULTIPLICA PELO COEFICIENTE DE RESOLUCAO DE PIXELS
+			# MULTIPLY THE DEFAULT RESOLUTION BY THE COEFICIENT
 			self.graphResolution = self.originalResolution[0] * coeficientResolution
 
 			for i in range(len(pointsArray)):
+				# GETS X,Y AND X2,Y2 POINTS
 				X1 = pointsArray[i][0]
 				Y1 = pointsArray[i][1]
 				X = X1
@@ -58,6 +70,7 @@ class Rasterizacao(QObject):
 					X2 = pointsArray[0][0]
 					Y2 = pointsArray[0][1]
 
+				# CALCULATE THE DELTAS
 				if (X2 - X1 != 0):
 					deltaX = (X2 - X1)
 				else:
@@ -72,12 +85,16 @@ class Rasterizacao(QObject):
 					M = 0
 				else:
 					M = deltaY/deltaX
+
+				# FUNCTION OF THE LINE
 				B = Y - M * X
 				
 				self.pointsOnX = []
 				self.pointsOnY = []
 				
+				# CALL FUNCTION TO GET THE CENTER OF THE POINT
 				self.createPointsFragments(X,Y)
+
 				if(abs(deltaX) > abs(deltaY)):
 					if (X < X2):
 						while(X < X2):
@@ -107,12 +124,14 @@ class Rasterizacao(QObject):
 								X=(Y-B)/M
 							self.createPointsFragments(X,Y)
 				
+				# PLOT POINTS
 				plt.plot(self.pointsOnX,self.pointsOnY, 'bs')
 
 			self.plotGraph(figure, self.graphsFileNames[0][iteradorAux])
 
 	@pyqtSlot(QVariant, QVariant, QVariant, QVariant)
 	def treatLineCoordinates(self, x1, y1, x2, y2):
+		# THIS FUNCTION TREATS GIVEN DATA TO PLOT A LINE
 		x1 = int(x1) 
 		y1 = int(y1)
 		x2 = int(x2)
@@ -123,10 +142,12 @@ class Rasterizacao(QObject):
 			[x2, y2]
 		]
 
+		# CALLS THE RASTERIZATION METHOD
 		self.doRasterization(pointsArray)
 
 	@pyqtSlot(QVariant, QVariant, QVariant, QVariant, QVariant, QVariant, QVariant, QVariant, QVariant, QVariant, QVariant, QVariant, QVariant)
 	def treatPolygonsCoordinates(self, polygonType, x1, y1, x2, y2, x3, y3, x4 = None, y4 = None, x5 = None, y5 = None, x6 = None, y6 = None):
+		# THIS FUNCTION TREATS GIVEN DATA TO PLOT THE RIGHT POLYGON
 		polygonType = int(polygonType)
 		x1 = int(x1) 
 		y1 = int(y1)
@@ -134,13 +155,13 @@ class Rasterizacao(QObject):
 		y2 = int(y2)
 		x3 = int(x3)
 		y3 = int(y3)
-		if (polygonType == 0 ):
+		if (polygonType == 0 ): # TRIANGLE
 			pointsArray = [
 				[x1, y1],
 				[x2, y2],
 				[x3, y3]
 			]
-		elif (polygonType == 1):
+		elif (polygonType == 1): # SQUARE
 			x4 = int(x4)
 			y4 = int(y4)
 			pointsArray = [
@@ -149,7 +170,7 @@ class Rasterizacao(QObject):
 				[x3, y3],
 				[x4, y4],
 			]
-		elif (polygonType == 2):
+		elif (polygonType == 2): # HEXAGON
 			x4 = int(x4)
 			y4 = int(y4)
 			x5 = int(x5)
@@ -167,5 +188,6 @@ class Rasterizacao(QObject):
 		else:
 			return 0
 
+		# CALLS THE RASTERIZATION METHOD
 		self.doRasterization(pointsArray)
 		
