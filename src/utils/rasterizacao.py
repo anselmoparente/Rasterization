@@ -11,21 +11,15 @@ class Rasterizacao(QObject):
 
 	def __init__(self):
 		QObject.__init__(self)
-		self.originalResolution = 0,
-		self.graphsFileNames = []
-		self.graphResolution = [],
+		self.originalResolution = int(20),
+		self.graphResolution = int(20),
+		self.graphsFileNames = [
+			'res20_20.png',
+			'res60_60.png',
+			'res120_120.png',
+		],
 		self.pointsOnX = [],
 		self.pointsOnY = []
-
-	def getGraphResolutions(self, arrayPoints):
-
-		higherNumber = abs(arrayPoints[0][0])
-		for i in arrayPoints:
-			for j in i:
-				if abs(j) > higherNumber:
-					higherNumber = abs(j)
-	
-		return higherNumber + 4
 
 	def plotGraph(self, figure, fileName):
 		plt.title('Resolution={}x{}'.format(self.graphResolution, self.graphResolution))
@@ -33,8 +27,8 @@ class Rasterizacao(QObject):
 		plt.ylabel('Eixo Y', labelpad = 7)
 		plt.xlabel('Eixo X', labelpad = 7)
 		plt.grid(color = 'black', linestyle = '-', linewidth = 0.8)
-		plt.xticks(range(0, self.graphResolution + 1), rotation='vertical')
-		plt.yticks(range(0, self.graphResolution + 1))
+		plt.xticks(range(-2, self.graphResolution + 2), rotation='vertical')
+		plt.yticks(range(-2, self.graphResolution + 2))
 		figure.savefig('./src/assets/' + str(fileName))
 
 	def createPointsFragments(self, x, y):
@@ -50,7 +44,7 @@ class Rasterizacao(QObject):
 		for iteradorAux in range(len(resizeCoeficientsArray)):
 			coeficientResolution = resizeCoeficientsArray[iteradorAux]
 			# MULTIPLICA PELO COEFICIENTE DE RESOLUCAO DE PIXELS
-			self.graphResolution = self.originalResolution * coeficientResolution
+			self.graphResolution = self.originalResolution[0] * coeficientResolution
 
 			for i in range(len(pointsArray)):
 				X1 = pointsArray[i][0]
@@ -103,7 +97,7 @@ class Rasterizacao(QObject):
 								X = X2
 							else:
 								X=(Y-B)/M
-								self.createPointsFragments(X,Y)
+							self.createPointsFragments(X,Y)
 					else:
 						while(Y > Y2):
 							Y=Y-1
@@ -111,11 +105,11 @@ class Rasterizacao(QObject):
 								X = X2
 							else:
 								X=(Y-B)/M
-								self.createPointsFragments(X,Y)
-					
+							self.createPointsFragments(X,Y)
+				
 				plt.plot(self.pointsOnX,self.pointsOnY, 'bs')
 
-			self.plotGraph(figure, self.graphsFileNames[iteradorAux])
+			self.plotGraph(figure, self.graphsFileNames[0][iteradorAux])
 
 	@pyqtSlot(QVariant, QVariant, QVariant, QVariant)
 	def treatLineCoordinates(self, x1, y1, x2, y2):
@@ -124,48 +118,44 @@ class Rasterizacao(QObject):
 		x2 = int(x2)
 		y2 = int(y2)
 
-		self.graphsFileNames = [
-			'lineGraph1.png',
-			'lineGraph2.png',
-			'lineGraph3.png',
-		]
-
 		pointsArray = [
 			[x1, y1],
 			[x2, y2]
 		]
 
-		graphResolution = self.getGraphResolutions(pointsArray)
-		self.originalResolution = graphResolution
-		self.graphResolution = graphResolution
 		self.doRasterization(pointsArray)
 
 	@pyqtSlot(QVariant, QVariant, QVariant, QVariant, QVariant, QVariant, QVariant, QVariant, QVariant, QVariant, QVariant, QVariant, QVariant)
 	def treatPolygonsCoordinates(self, polygonType, x1, y1, x2, y2, x3, y3, x4 = None, y4 = None, x5 = None, y5 = None, x6 = None, y6 = None):
-		if (polygonType == 'TE' ):
+		polygonType = int(polygonType)
+		x1 = int(x1) 
+		y1 = int(y1)
+		x2 = int(x2)
+		y2 = int(y2)
+		x3 = int(x3)
+		y3 = int(y3)
+		if (polygonType == 0 ):
 			pointsArray = [
 				[x1, y1],
 				[x2, y2],
 				[x3, y3]
 			]
-			self.graphsFileNames = [
-				'triangleGraph1.png',
-				'triangleGraph2.png',
-				'triangleGraph3.png',
-			]
-		elif (polygonType == 'R'):
+		elif (polygonType == 1):
+			x4 = int(x4)
+			y4 = int(y4)
 			pointsArray = [
 				[x1, y1],
 				[x2, y2],
 				[x3, y3],
 				[x4, y4],
 			]
-			self.graphsFileNames = [
-				'rectangleGraph1.png',
-				'rectangleGraph2.png',
-				'rectangleGraph3.png',
-			]
-		elif (polygonType == 'H'):
+		elif (polygonType == 2):
+			x4 = int(x4)
+			y4 = int(y4)
+			x5 = int(x5)
+			y5 = int(y5)
+			x6 = int(x6)
+			y6 = int(y6)
 			pointsArray = [
 				[x1, y1],
 				[x2, y2],
@@ -174,25 +164,8 @@ class Rasterizacao(QObject):
 				[x5, y5],
 				[x6, y6]
 			]
-			self.graphsFileNames = [
-				'hexagonGraph1.png',
-				'hexagonGraph2.png',
-				'hexagonGraph3.png',
-			]
 		else:
 			return 0
 
-		graphResolution = self.getGraphResolutions(pointsArray)
-		self.originalResolution = graphResolution
-		self.graphResolution = graphResolution
-		# self.doRasterization(pointsArray)
-		# print(x1)
-		# x1 = int(x1) 
-		# y1 = int(y1)
-		# x2 = int(x2)
-		# y2 = int(y2)
-
-		# graphResolution = self.getGraphResolutions(pointsArray)
-		# self.originalResolution = graphResolution
-		# self.graphResolution = graphResolution
-		# self.doRasterization(pointsArray)
+		self.doRasterization(pointsArray)
+		
