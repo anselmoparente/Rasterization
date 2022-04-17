@@ -12,6 +12,7 @@ from numpy import array
 mpl.use('Agg')  
 import matplotlib.pyplot as plt
 from math import floor
+import numpy as np
 
 class Rasterizacao(QObject):
 
@@ -25,7 +26,26 @@ class Rasterizacao(QObject):
 			'res120_120.png',
 		],
 		self.pointsOnX = [],
-		self.pointsOnY = []
+		self.pointsOnY = [],
+		self.generalMatrix = []
+
+	def polygonInside(self):
+		counter = 0
+		for j in range(len(self.generalMatrix[0])):
+			self.pointsOnX.clear()
+			self.pointsOnY.clear()
+			counter = 0
+			for i in range(len(self.generalMatrix)):
+				if self.generalMatrix[i][j] == 1:
+					counter += 1
+				resto = counter % 2
+				if resto != 0:
+					self.generalMatrix[i][j] = 1
+					self.createPointsFragments(i, j)
+
+			if (counter % 2 == 0):
+				plt.plot(self.pointsOnX,self.pointsOnY, 'bs')
+  
 
 	def plotGraph(self, figure, fileName):
 		# FUNCTION TO PLOT THE GRAPH
@@ -34,8 +54,8 @@ class Rasterizacao(QObject):
 		plt.ylabel('Eixo Y', labelpad = 7)
 		plt.xlabel('Eixo X', labelpad = 7)
 		plt.grid(color = 'black', linestyle = '-', linewidth = 0.8)
-		plt.xticks(range(-2, self.graphResolution + 2), rotation='vertical')
-		plt.yticks(range(-2, self.graphResolution + 2))
+		plt.xticks(range(-1, self.graphResolution + 3), rotation='vertical')
+		plt.yticks(range(-1, self.graphResolution + 3))
 		figure.savefig('./src/assets/' + str(fileName))
 
 	def createPointsFragments(self, x, y):
@@ -43,6 +63,7 @@ class Rasterizacao(QObject):
 		# THIS FUNCTION IS REPONSIBLE TO GET THE CENTER OF A PIXEL TO PLOT THE POINT
 		xm = floor(x)
 		ym = floor(y)
+		self.generalMatrix[xm][ym] = 1
 		self.pointsOnX.append(xm + 0.5)
 		self.pointsOnY.append(ym + 0.5)
 
@@ -56,6 +77,9 @@ class Rasterizacao(QObject):
 			coeficientResolution = resizeCoeficientsArray[iteradorAux]
 			# MULTIPLY THE DEFAULT RESOLUTION BY THE COEFICIENT
 			self.graphResolution = self.originalResolution[0] * coeficientResolution
+
+			# FILL WITH ZEROS THE MATRIX TO KEEP THE OBJECT AND THEN RASTERIZE YOUR INSIDE
+			self.generalMatrix = np.zeros((self.graphResolution + 1, self.graphResolution + 1))
 
 			for i in range(len(pointsArray)):
 				# GETS X,Y AND X2,Y2 POINTS
@@ -127,6 +151,7 @@ class Rasterizacao(QObject):
 				# PLOT POINTS
 				plt.plot(self.pointsOnX,self.pointsOnY, 'bs')
 
+			self.polygonInside()
 			self.plotGraph(figure, self.graphsFileNames[0][iteradorAux])
 
 	@pyqtSlot(QVariant, QVariant, QVariant, QVariant)
