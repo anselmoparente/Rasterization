@@ -33,7 +33,7 @@ Item {
                         horizontalAlignment: TextInput.AlignHCenter 
                         placeholderText: "0-99"
                         validator: RegExpValidator{
-                            regExp: /^[0-9]{0,2}$/
+                            regExp: /^\d{0,2}(\.\d{1,5})?$/
                         }
                     }
                 }
@@ -54,7 +54,7 @@ Item {
                         horizontalAlignment: TextInput.AlignHCenter 
                         placeholderText: "0-99"
                         validator: RegExpValidator{
-                            regExp: /^[0-9]{0,2}$/
+                            regExp: /^\d{0,2}(\.\d{1,5})?$/
                         }
                     }
                 }
@@ -84,7 +84,7 @@ Item {
                         horizontalAlignment: TextInput.AlignHCenter 
                         placeholderText: "0-99"
                         validator: RegExpValidator{
-                            regExp: /^[0-9]{0,2}$/
+                            regExp: /^\d{0,2}(\.\d{1,5})?$/
                         }
                         
                     }
@@ -106,7 +106,7 @@ Item {
                         horizontalAlignment: TextInput.AlignHCenter 
                         placeholderText: "0-99"
                         validator: RegExpValidator{
-                            regExp: /^[0-9]{0,2}$/
+                            regExp: /^\d{0,2}(\.\d{1,5})?$/
                         }
                     }
                 }

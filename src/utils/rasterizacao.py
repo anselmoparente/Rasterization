@@ -124,11 +124,15 @@ class Rasterizacao(QObject):
 						while(X < X2):
 							X = X+1
 							Y=M*X + B
+							if (X > X2):
+								continue
 							self.createPointsFragments(X,Y)
 					else:
 						while(X > X2):
 							X=X-1
 							Y=M*X + B
+							if (X < 0 or Y < 0):
+								continue
 							self.createPointsFragments(X,Y)
 				else:
 					if (Y < Y2):
@@ -138,6 +142,8 @@ class Rasterizacao(QObject):
 								X = X2
 							else:
 								X=(Y-B)/M
+							if (Y > Y2):
+								continue
 							self.createPointsFragments(X,Y)
 					else:
 						while(Y > Y2):
@@ -146,6 +152,8 @@ class Rasterizacao(QObject):
 								X = X2
 							else:
 								X=(Y-B)/M
+							if (X < 0 or Y < 0):
+								continue
 							self.createPointsFragments(X,Y)
 				
 				# PLOT POINTS
@@ -157,10 +165,10 @@ class Rasterizacao(QObject):
 	@pyqtSlot(QVariant, QVariant, QVariant, QVariant)
 	def treatLineCoordinates(self, x1, y1, x2, y2):
 		# THIS FUNCTION TREATS GIVEN DATA TO PLOT A LINE
-		x1 = int(x1) 
-		y1 = int(y1)
-		x2 = int(x2)
-		y2 = int(y2)
+		x1 = float(x1) 
+		y1 = float(y1)
+		x2 = float(x2)
+		y2 = float(y2)
 
 		pointsArray = [
 			[x1, y1],
@@ -174,12 +182,12 @@ class Rasterizacao(QObject):
 	def treatPolygonsCoordinates(self, polygonType, x1, y1, x2, y2, x3, y3, x4 = None, y4 = None, x5 = None, y5 = None, x6 = None, y6 = None):
 		# THIS FUNCTION TREATS GIVEN DATA TO PLOT THE RIGHT POLYGON
 		polygonType = int(polygonType)
-		x1 = int(x1) 
-		y1 = int(y1)
-		x2 = int(x2)
-		y2 = int(y2)
-		x3 = int(x3)
-		y3 = int(y3)
+		x1 = float(x1) 
+		y1 = float(y1)
+		x2 = float(x2)
+		y2 = float(y2)
+		x3 = float(x3)
+		y3 = float(y3)
 		if (polygonType == 0 ): # TRIANGLE
 			pointsArray = [
 				[x1, y1],
@@ -187,8 +195,8 @@ class Rasterizacao(QObject):
 				[x3, y3]
 			]
 		elif (polygonType == 1): # SQUARE
-			x4 = int(x4)
-			y4 = int(y4)
+			x4 = float(x4)
+			y4 = float(y4)
 			pointsArray = [
 				[x1, y1],
 				[x2, y2],
@@ -196,12 +204,12 @@ class Rasterizacao(QObject):
 				[x4, y4],
 			]
 		elif (polygonType == 2): # HEXAGON
-			x4 = int(x4)
-			y4 = int(y4)
-			x5 = int(x5)
-			y5 = int(y5)
-			x6 = int(x6)
-			y6 = int(y6)
+			x4 = float(x4)
+			y4 = float(y4)
+			x5 = float(x5)
+			y5 = float(y5)
+			x6 = float(x6)
+			y6 = float(y6)
 			pointsArray = [
 				[x1, y1],
 				[x2, y2],
