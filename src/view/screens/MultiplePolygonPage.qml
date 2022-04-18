@@ -27,8 +27,8 @@ Item {
         Image {
             visible: !isFolderEmpty
             id: imageRaster
-            width: multiplePolygonPage.width * 0.95
-            height: multiplePolygonPage.height * 0.95
+            width: multiplePolygonPage.width
+            height: multiplePolygonPage.height
             source: '../../assets/multiple.png'
         }
     }

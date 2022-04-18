@@ -63,7 +63,7 @@ Item {
         Image {
             visible: !isFolderEmpty
             id: imageRaster
-            width: homePage.width * 0.5
+            width: homePage.width * 0.6
             height: homePage.height
             source: imagesSources[checkedButton]
         }
