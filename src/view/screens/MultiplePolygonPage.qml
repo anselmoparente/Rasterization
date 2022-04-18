@@ -3,12 +3,12 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
 Item {
-    id: homePage
-    property var imagesSources: ["../../assets/res20_20.png", "../../assets/res60_60.png", "../../assets/res120_120.png"]
+    id: multiplePolygonPage
     property int checkedButton: 0
+    property var imagesSources: ["../../assets/multipleOriginal.png", "../../assets/multipleNotResized.png", "../../assets/multipleResized.png"]
     property bool isFolderEmpty: true
 
-    objectName: "Home Page"
+    objectName: "Múltiplos Polígonos Page"
 
     Row{
         anchors.centerIn: parent
@@ -18,7 +18,7 @@ Item {
             visible: isFolderEmpty
             color: "#000000"
             opacity: 0.3
-            font.pixelSize: homePage.width * 0.03
+            font.pixelSize: multiplePolygonPage.width * 0.03
             font.family: applicationWindow.font.family
             text: qsTr("Nenhuma Rasterização Completa")
             horizontalAlignment: Text.AlignHCenter
@@ -27,30 +27,30 @@ Item {
 
         GroupBox {
             visible: !isFolderEmpty
-            title: qsTr("Resolução")
+            title: qsTr("Opção")
             ColumnLayout {
                 RadioButton {
                     checked: true
                     width: parent.width * 0.01
-                    text: qsTr("20x20")
+                    text: qsTr("Original")
                     onCheckedChanged:{
                         if(checked){
                             checkedButton = 0
                         }
                     }
                 }
-                RadioButton { 
+                RadioButton {
                     width: parent.width * 0.01
-                    text: qsTr("60x60")
+                    text: qsTr("Not Resized")
                     onCheckedChanged:{
                         if(checked){
                             checkedButton = 1
                         }
                     }
                 }
-                RadioButton  { 
+                RadioButton { 
                     width: parent.width * 0.01
-                    text: qsTr("120x120") 
+                    text: qsTr("Resized")
                     onCheckedChanged:{
                         if(checked){
                             checkedButton = 2
@@ -63,8 +63,8 @@ Item {
         Image {
             visible: !isFolderEmpty
             id: imageRaster
-            width: homePage.width * 0.6
-            height: homePage.height
+            width: multiplePolygonPage.width * 0.7
+            height: multiplePolygonPage.height * 0.9
             source: imagesSources[checkedButton]
         }
     }

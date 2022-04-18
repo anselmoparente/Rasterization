@@ -4,7 +4,11 @@ import QtQuick.Layouts 1.15
 
 Item {
     id: homePage
-    property var imagesSources: ["../../assets/res20_20.png", "../../assets/res60_60.png", "../../assets/res120_120.png"]
+    property var imagesSources: [
+        ["../../assets/resizingPolygons/triangleResized20x20.png", "../../assets/resizingPolygons/triangleResized60x60.png", "../../assets/resizingPolygons/triangleResized120x120.png"],
+        ["../../assets/resizingPolygons/squareResized20x20.png", "../../assets/resizingPolygons/squareResized60x60.png", "../../assets/resizingPolygons/squareResized120x120.png"],
+        ["../../assets/resizingPolygons/hexagonResized20x20.png", "../../assets/resizingPolygons/hexagonResized60x60.png", "../../assets/resizingPolygons/hexagonResized120x120.png"]]
+    property int optionObject: 0
     property int checkedButton: 0
     property bool isFolderEmpty: true
 
@@ -23,6 +27,41 @@ Item {
             text: qsTr("Nenhuma Rasterização Completa")
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
+        }
+
+        GroupBox {
+            visible: !isFolderEmpty
+            title: qsTr("Opção")
+            ColumnLayout {
+                RadioButton {
+                    checked: true
+                    width: parent.width * 0.01
+                    text: qsTr("Triangulo")
+                    onCheckedChanged:{
+                        if(checked){
+                            optionObject = 0
+                        }
+                    }
+                }
+                RadioButton { 
+                    width: parent.width * 0.01
+                    text: qsTr("Quadrado")
+                    onCheckedChanged:{
+                        if(checked){
+                            optionObject = 1
+                        }
+                    }
+                }
+                RadioButton  { 
+                    width: parent.width * 0.01
+                    text: qsTr("Hexagono") 
+                    onCheckedChanged:{
+                        if(checked){
+                            optionObject = 2
+                        }
+                    }
+                }
+            }
         }
 
         GroupBox {
@@ -62,10 +101,9 @@ Item {
 
         Image {
             visible: !isFolderEmpty
-            id: imageRaster
-            width: homePage.width * 0.6
-            height: homePage.height
-            source: imagesSources[checkedButton]
+            width: homePage.width * 0.7
+            height: homePage.height * 0.9
+            source: imagesSources[optionObject][checkedButton]
         }
     }
 
