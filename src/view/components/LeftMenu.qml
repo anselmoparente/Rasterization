@@ -37,10 +37,15 @@ Rectangle {
             } else if(btnPressed == "buttonRasterizationPolygons"){
                 routes.pop()
                 routes.push(Qt.resolvedUrl("../screens/RasterizationPolygons.qml"))
-            }
-            else if(btnPressed == "buttonHomePage"){
+            } else if(btnPressed == "buttonHomePage"){
                 routes.pop()
                 routes.push(Qt.resolvedUrl("../screens/HomePage.qml"))
+            } else if(btnPressed == "buttonMultiplesPolygons"){
+                routes.pop()
+                routes.push(Qt.resolvedUrl("../screens/MultiplePolygonPage.qml"))
+            } else if(btnPressed == "buttonMoreInformations"){
+                routes.pop()
+                routes.push(Qt.resolvedUrl("../screens/RasterV2Page.qml"))
             }
         }
 
@@ -81,6 +86,30 @@ Rectangle {
 
             onClicked: {
                 btnPressed = "buttonRasterizationPolygons"
+                internal.continueFunction()
+            }
+        }
+
+        LeftMenuButton {
+            id: buttonMultiplesPolygons
+            width: leftMenu.width 
+            text: qsTr("Múltiplos polígonos")
+            isActiveMenu: focus
+
+            onClicked: {
+                btnPressed = "buttonMultiplesPolygons"
+                internal.continueFunction()
+            }
+        }
+
+        LeftMenuButton {
+            id: buttonMoreInformations
+            width: leftMenu.width 
+            text: qsTr("Conteúdo adicional")
+            isActiveMenu: focus
+
+            onClicked: {
+                btnPressed = "buttonMoreInformations"
                 internal.continueFunction()
             }
         }
