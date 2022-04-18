@@ -5,6 +5,7 @@ import QtQuick.Layouts 1.15
 Item {
     id: multiplePolygonPage
     property int checkedButton: 0
+    property var imagesSources: ["../../assets/multipleOriginal.png", "../../assets/multipleNotResized.png", "../../assets/multipleResized.png"]
     property bool isFolderEmpty: true
 
     objectName: "Múltiplos Polígonos Page"
@@ -24,12 +25,47 @@ Item {
             verticalAlignment: Text.AlignVCenter
         }
 
+        GroupBox {
+            visible: !isFolderEmpty
+            title: qsTr("Opção")
+            ColumnLayout {
+                RadioButton {
+                    checked: true
+                    width: parent.width * 0.01
+                    text: qsTr("Original")
+                    onCheckedChanged:{
+                        if(checked){
+                            checkedButton = 0
+                        }
+                    }
+                }
+                RadioButton {
+                    width: parent.width * 0.01
+                    text: qsTr("Not Resized")
+                    onCheckedChanged:{
+                        if(checked){
+                            checkedButton = 1
+                        }
+                    }
+                }
+                RadioButton { 
+                    width: parent.width * 0.01
+                    text: qsTr("Resized")
+                    onCheckedChanged:{
+                        if(checked){
+                            checkedButton = 2
+                        }
+                    }
+                }
+            }
+        }
+
         Image {
             visible: !isFolderEmpty
             id: imageRaster
-            width: multiplePolygonPage.width
-            height: multiplePolygonPage.height
-            source: '../../assets/multiple.png'
+            width: multiplePolygonPage.width * 0.7
+            height: multiplePolygonPage.height * 0.9
+            source: imagesSources[checkedButton]
         }
     }
 
