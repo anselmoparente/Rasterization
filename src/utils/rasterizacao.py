@@ -71,12 +71,19 @@ class Rasterizacao(QObject):
 		# RASTERIZATION METHOD
 
 		resizeCoeficientsArray = [1, 3, 6] # COEFICIENT TO RESIZE THE DEFAULT RESOLUTION
-		figure = plt.figure(figsize=(10, 7))
+		
+		# figure = plt.figure(figsize=(10, 7))
 
 		for iteradorAux in range(len(resizeCoeficientsArray)):
 			coeficientResolution = resizeCoeficientsArray[iteradorAux]
 			# MULTIPLY THE DEFAULT RESOLUTION BY THE COEFICIENT
 			self.graphResolution = self.originalResolution[0] * coeficientResolution
+
+			# CALCULATE THE FIGURE SIZE
+			progAritim1 = 10 + ( (coeficientResolution - 2) - 1)*2
+			progAritim2 = 7 + (coeficientResolution - 1)*2
+
+			figure = plt.figure(figsize=(progAritim1, progAritim2))
 
 			# FILL WITH ZEROS THE MATRIX TO KEEP THE OBJECT AND THEN RASTERIZE YOUR INSIDE
 			self.generalMatrix = np.zeros((self.graphResolution + 1, self.graphResolution + 1))

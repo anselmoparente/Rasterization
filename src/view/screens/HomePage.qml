@@ -41,7 +41,7 @@ Item {
                 }
                 RadioButton { 
                     width: parent.width * 0.01
-                    text: qsTr("80x80")
+                    text: qsTr("60x60")
                     onCheckedChanged:{
                         if(checked){
                             checkedButton = 1
@@ -50,7 +50,7 @@ Item {
                 }
                 RadioButton  { 
                     width: parent.width * 0.01
-                    text: qsTr("150x150") 
+                    text: qsTr("120x120") 
                     onCheckedChanged:{
                         if(checked){
                             checkedButton = 2
@@ -63,8 +63,8 @@ Item {
         Image {
             visible: !isFolderEmpty
             id: imageRaster
-            width: homePage.width * 0.8
-            height: homePage.height * 0.8
+            width: homePage.width * 0.5
+            height: homePage.height
             source: imagesSources[checkedButton]
         }
     }
