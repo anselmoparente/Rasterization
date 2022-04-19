@@ -84,7 +84,7 @@ class Rasterizacao(QObject):
 			# CREATE THE FIGURE COMPONENT
 			figure = plt.figure(figsize=(10, 7))
 
-			# LOOP TO RESIZE THE OBJECT
+			# LOOP TO KEEP THE ORIGINAL DIMENSIONS OF THE FIGURE
 			for i in range(len(pointsArray)):
 				pointsArray[i][0] = self.orginalArray[i][0] * coeficientResolution
 				pointsArray[i][1] = self.orginalArray[i][1] * coeficientResolution
@@ -186,6 +186,7 @@ class Rasterizacao(QObject):
 			[x2, y2]
 		]
 
+		# SAVE THE ORIGINALS COORDINATES
 		self.orginalArray = [
 			[x1, y1],
 			[x2, y2]
@@ -211,6 +212,7 @@ class Rasterizacao(QObject):
 				[x3, y3]
 			]
 
+			# SAVE THE ORIGINALS COORDINATES
 			self.orginalArray = [
 				[x1, y1],
 				[x2, y2],
@@ -226,6 +228,7 @@ class Rasterizacao(QObject):
 				[x4, y4],
 			]
 
+			# SAVE THE ORIGINALS COORDINATES
 			self.orginalArray = [
 				[x1, y1],
 				[x2, y2],
@@ -248,6 +251,7 @@ class Rasterizacao(QObject):
 				[x6, y6]
 			]
 
+			# SAVE THE ORIGINALS COORDINATES
 			self.orginalArray = [
 				[x1, y1],
 				[x2, y2],
