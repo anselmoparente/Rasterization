@@ -36,14 +36,17 @@ class Rasterizacao(QObject):
 			self.pointsOnX.clear()
 			self.pointsOnY.clear()
 			counter = 0
+			# LOOP TO PASS THROUGH THE MATRIX
 			for i in range(len(self.generalMatrix)):
 				if self.generalMatrix[i][j] == 1:
 					counter += 1
 				resto = counter % 2
+				# VERIFY IF IT IS AN EVEN NUMBER
 				if resto != 0:
 					self.generalMatrix[i][j] = 1
 					self.createPointsFragments(i, j)
 
+			# VERIFY IF IT IS AN ODD NUMBER
 			if (counter % 2 == 0):
 				plt.plot(self.pointsOnX,self.pointsOnY, 'bs')
   
