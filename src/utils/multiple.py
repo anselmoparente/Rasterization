@@ -91,6 +91,7 @@ for i in range(len(arrayPoligonos)):
   arrayPontos = arrayPoligonos[i]
   rangeLoop = len(arrayPontos)
 
+  # LOOP TO GET THE POINTS AND DO THE RASTERIZATION
   for i in range(rangeLoop):
     X1 = arrayPontos[i][0]
     Y1 = arrayPontos[i][1]
@@ -138,7 +139,6 @@ for i in range(len(arrayPoligonos)):
           
           if (X < 0 or Y < 0):
             continue
-            
           createPointsFragments(X,Y)
     else:
       if (Y < Y2):
