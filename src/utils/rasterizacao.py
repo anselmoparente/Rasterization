@@ -25,6 +25,7 @@ class Rasterizacao(QObject):
 			'res60_60.png',
 			'res120_120.png',
 		],
+		self.orginalArray = [],
 		self.pointsOnX = [],
 		self.pointsOnY = [],
 		self.generalMatrix = []
@@ -54,8 +55,11 @@ class Rasterizacao(QObject):
 		plt.ylabel('Eixo Y', labelpad = 7)
 		plt.xlabel('Eixo X', labelpad = 7)
 		plt.grid(color = 'black', linestyle = '-', linewidth = 0.8)
+		# SET THE QUANTITY OF NUMBERS ON TICKS
 		plt.xticks(range(-1, self.graphResolution + 3), rotation='vertical')
 		plt.yticks(range(-1, self.graphResolution + 3))
+		# DISABLE SHOWING COORDINATE NUMBERS ON FIGURE
+		plt.tick_params(left = False, right = False , labelleft = False , labelbottom = False, bottom = False)
 		figure.savefig('./src/assets/' + str(fileName))
 
 	def createPointsFragments(self, x, y):
@@ -71,19 +75,19 @@ class Rasterizacao(QObject):
 		# RASTERIZATION METHOD
 
 		resizeCoeficientsArray = [1, 3, 6] # COEFICIENT TO RESIZE THE DEFAULT RESOLUTION
-		
-		# figure = plt.figure(figsize=(10, 7))
 
 		for iteradorAux in range(len(resizeCoeficientsArray)):
 			coeficientResolution = resizeCoeficientsArray[iteradorAux]
 			# MULTIPLY THE DEFAULT RESOLUTION BY THE COEFICIENT
 			self.graphResolution = self.originalResolution[0] * coeficientResolution
 
-			# CALCULATE THE FIGURE SIZE
-			progAritim1 = 10 + ( (coeficientResolution - 2) - 1)*2
-			progAritim2 = 7 + (coeficientResolution - 1)*2
+			# CREATE THE FIGURE COMPONENT
+			figure = plt.figure(figsize=(10, 7))
 
-			figure = plt.figure(figsize=(progAritim1, progAritim2))
+			# LOOP TO RESIZE THE OBJECT
+			for i in range(len(pointsArray)):
+				pointsArray[i][0] = self.orginalArray[i][0] * coeficientResolution
+				pointsArray[i][1] = self.orginalArray[i][1] * coeficientResolution
 
 			# FILL WITH ZEROS THE MATRIX TO KEEP THE OBJECT AND THEN RASTERIZE YOUR INSIDE
 			self.generalMatrix = np.zeros((self.graphResolution + 1, self.graphResolution + 1))
@@ -182,6 +186,11 @@ class Rasterizacao(QObject):
 			[x2, y2]
 		]
 
+		self.orginalArray = [
+			[x1, y1],
+			[x2, y2]
+		]
+
 		# CALLS THE RASTERIZATION METHOD
 		self.doRasterization(pointsArray)
 
@@ -201,10 +210,23 @@ class Rasterizacao(QObject):
 				[x2, y2],
 				[x3, y3]
 			]
+
+			self.orginalArray = [
+				[x1, y1],
+				[x2, y2],
+				[x3, y3]
+			]
 		elif (polygonType == 1): # SQUARE
 			x4 = float(x4)
 			y4 = float(y4)
 			pointsArray = [
+				[x1, y1],
+				[x2, y2],
+				[x3, y3],
+				[x4, y4],
+			]
+
+			self.orginalArray = [
 				[x1, y1],
 				[x2, y2],
 				[x3, y3],
@@ -218,6 +240,15 @@ class Rasterizacao(QObject):
 			x6 = float(x6)
 			y6 = float(y6)
 			pointsArray = [
+				[x1, y1],
+				[x2, y2],
+				[x3, y3],
+				[x4, y4],
+				[x5, y5],
+				[x6, y6]
+			]
+
+			self.orginalArray = [
 				[x1, y1],
 				[x2, y2],
 				[x3, y3],
