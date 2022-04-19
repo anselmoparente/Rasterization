@@ -80,8 +80,6 @@ for i in range(len(arrayPoligonos)):
   rangeLoop = len(arrayPontos)
 
   for j in range(rangeLoop):
-    if rangeLoop == 3 and j == 0:
-      continue
     arrayPoligonos[i][j][0] = arrayPoligonos[i][j][0] * n
     arrayPoligonos[i][j][1] = arrayPoligonos[i][j][1] * n
 
