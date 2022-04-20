@@ -5,7 +5,7 @@ import QtQuick.Layouts 1.15
 Item {
     id: multiplePolygonPage
     property int checkedButton: 0
-    property var imagesSources: ["../../assets/multipleOriginal.png", "../../assets/multipleNotResized.png", "../../assets/multipleResized.png"]
+    property var imagesSources: ["../../assets/multiple/multipleOriginal.png", "../../assets/multiple/multipleResized.png"]
     property bool isFolderEmpty: true
 
     objectName: "Múltiplos Polígonos Page"
@@ -32,28 +32,20 @@ Item {
                 RadioButton {
                     checked: true
                     width: parent.width * 0.01
-                    text: qsTr("Original")
+                    text: qsTr("Original 20x20")
                     onCheckedChanged:{
                         if(checked){
                             checkedButton = 0
                         }
                     }
                 }
-                RadioButton {
+
+                RadioButton { 
                     width: parent.width * 0.01
-                    text: qsTr("Not Resized")
+                    text: qsTr("Resized 120x120")
                     onCheckedChanged:{
                         if(checked){
                             checkedButton = 1
-                        }
-                    }
-                }
-                RadioButton { 
-                    width: parent.width * 0.01
-                    text: qsTr("Resized")
-                    onCheckedChanged:{
-                        if(checked){
-                            checkedButton = 2
                         }
                     }
                 }
@@ -63,8 +55,8 @@ Item {
         Image {
             visible: !isFolderEmpty
             id: imageRaster
-            width: multiplePolygonPage.width * 0.7
-            height: multiplePolygonPage.height * 0.9
+            width: multiplePolygonPage.width * 0.8
+            height: multiplePolygonPage.height * 0.8
             source: imagesSources[checkedButton]
         }
     }

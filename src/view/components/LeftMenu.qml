@@ -43,9 +43,6 @@ Rectangle {
             } else if(btnPressed == "buttonMultiplesPolygons"){
                 routes.pop()
                 routes.push(Qt.resolvedUrl("../screens/MultiplePolygonPage.qml"))
-            } else if(btnPressed == "buttonMoreInformations"){
-                routes.pop()
-                routes.push(Qt.resolvedUrl("../screens/RasterV2Page.qml"))
             }
         }
 
@@ -98,18 +95,6 @@ Rectangle {
 
             onClicked: {
                 btnPressed = "buttonMultiplesPolygons"
-                internal.continueFunction()
-            }
-        }
-
-        LeftMenuButton {
-            id: buttonMoreInformations
-            width: leftMenu.width 
-            text: qsTr("Conteúdo adicional")
-            isActiveMenu: focus
-
-            onClicked: {
-                btnPressed = "buttonMoreInformations"
                 internal.continueFunction()
             }
         }
