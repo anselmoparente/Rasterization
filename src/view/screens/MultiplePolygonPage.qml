@@ -13,20 +13,7 @@ Item {
     Row{
         anchors.centerIn: parent
 
-        Text {
-            id: noFileText
-            visible: isFolderEmpty
-            color: "#000000"
-            opacity: 0.3
-            font.pixelSize: multiplePolygonPage.width * 0.03
-            font.family: applicationWindow.font.family
-            text: qsTr("Nenhuma Rasterização Completa")
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-        }
-
         GroupBox {
-            visible: !isFolderEmpty
             title: qsTr("Opção")
             ColumnLayout {
                 RadioButton {
@@ -53,7 +40,6 @@ Item {
         }
 
         Image {
-            visible: !isFolderEmpty
             id: imageRaster
             width: multiplePolygonPage.width * 0.8
             height: multiplePolygonPage.height * 0.8
