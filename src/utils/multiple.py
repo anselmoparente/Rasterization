@@ -46,10 +46,7 @@ resolucao = 20*n
 
 arrayPointsRasterized = np.zeros((resolucao + 1, resolucao + 1))
 
-progAritim1 = 10 + ( (n - 2) - 1)*2
-progAritim2 = 7 + (n - 1)*2
-
-fig = plt.figure(figsize=(progAritim1, progAritim2))
+fig = plt.figure(figsize=(10, 7))
 
 # ARRAY TO STORE MULTIPLE POLYGONS
 arrayPoligonos = [
@@ -74,7 +71,7 @@ arrayPoligonos = [
   ],
 ]
 
-# TO NOT RESIZE POLYGONS, COMMENT CODE BELOW
+# CODE TO KEEP THE ORIGINAL DIMENSIONS OF ALL POLYGONS
 for i in range(len(arrayPoligonos)):
   arrayPontos = arrayPoligonos[i]
   rangeLoop = len(arrayPontos)
